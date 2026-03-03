@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────
+   CSS Custom Properties — Light / Dark themes
+   ────────────────────────────────────────────── */
+
+:root {
+  --color-bg: #fafafa;
+  --color-bg-alt: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --color-text-heading: #0f172a;
+  --color-border: #e2e8f0;
+  --color-accent: #7c3aed;
+  --color-accent-light: #a78bfa;
+  --color-accent-hover: #6d28d9;
+  --color-gradient-from: #7c3aed;
+  --color-gradient-via: #ec4899;
+  --color-gradient-to: #f59e0b;
+  --color-hero-overlay: rgba(15, 23, 42, 0.6);
+  --color-tag-bg: rgba(124, 58, 237, 0.1);
+  --color-tag-text: #7c3aed;
+}
+
+:root.dark {
+  --color-bg: #0b0f1a;
+  --color-bg-alt: #111827;
+  --color-bg-card: #1e293b;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-text-heading: #f1f5f9;
+  --color-border: #334155;
+  --color-accent: #a78bfa;
+  --color-accent-light: #c4b5fd;
+  --color-accent-hover: #8b5cf6;
+  --color-hero-overlay: rgba(0, 0, 0, 0.7);
+  --color-tag-bg: rgba(167, 139, 250, 0.15);
+  --color-tag-text: #c4b5fd;
+}
+
+/* ──────────────────────────────────────────────
+   Theme-aware Tailwind v4 utilities
+   ────────────────────────────────────────────── */
+
+@theme {
+  --color-surface: var(--color-bg);
+  --color-surface-alt: var(--color-bg-alt);
+  --color-surface-card: var(--color-bg-card);
+  --color-on-surface: var(--color-text);
+  --color-on-surface-muted: var(--color-text-muted);
+  --color-on-surface-heading: var(--color-text-heading);
+  --color-outline: var(--color-border);
+  --color-primary: var(--color-accent);
+  --color-primary-light: var(--color-accent-light);
+  --color-primary-hover: var(--color-accent-hover);
+  --color-grad-from: var(--color-gradient-from);
+  --color-grad-via: var(--color-gradient-via);
+  --color-grad-to: var(--color-gradient-to);
+  --color-overlay: var(--color-hero-overlay);
+  --color-chip-bg: var(--color-tag-bg);
+  --color-chip-text: var(--color-tag-text);
+}
+
+/* ──────────────────────────────────────────────
+   Base resets
+   ────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ──────────────────────────────────────────────
+   Prose styles for markdown content
+   ────────────────────────────────────────────── */
+
+.prose {
+  color: var(--color-text);
+  max-width: 72ch;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: var(--color-text-heading);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.prose h1 { font-size: 2.25rem; margin-top: 0; margin-bottom: 1.5rem; }
+.prose h2 { font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; }
+.prose h3 { font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+
+.prose p {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+.prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  color: var(--color-accent-hover);
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.prose ul li { list-style-type: disc; }
+.prose ol li { list-style-type: decimal; }
+
+.prose blockquote {
+  border-left: 4px solid var(--color-accent);
+  padding: 0.75rem 1.5rem;
+  margin: 1.5rem 0;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.prose img {
+  border-radius: 1rem;
+  margin: 2rem 0;
+  max-width: 100%;
+}
+
+.prose code {
+  background: var(--color-tag-bg);
+  color: var(--color-tag-text);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.prose pre {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.prose hr {
+  border-color: var(--color-border);
+  margin: 2.5rem 0;
+}
+
+.prose strong {
+  color: var(--color-text-heading);
+}

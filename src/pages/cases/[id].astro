@@ -1,0 +1,65 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const cases = await getCollection('cases');
+  return cases.map((c) => ({ params: { id: c.id }, props: { entry: c } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Layout title={`${entry.data.title} — Luminary Films`} description={entry.data.tagline}>
+  <article class="pt-28 pb-24">
+    <div class="mx-auto max-w-4xl px-6">
+      <a href="/#work" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary-hover transition-colors mb-8">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        Back to Work
+      </a>
+
+      <div class="flex flex-wrap gap-2 mb-4">
+        {entry.data.tags.map((tag: string) => (
+          <span class="rounded-full bg-chip-bg px-3 py-1 text-xs font-semibold text-chip-text">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <h1 class="text-4xl font-extrabold tracking-tight text-on-surface-heading sm:text-5xl">
+        {entry.data.title}
+      </h1>
+
+      <p class="mt-4 text-lg leading-relaxed text-on-surface-muted">
+        {entry.data.description}
+      </p>
+
+      <div class="mt-10 overflow-hidden rounded-2xl border border-outline">
+        <video
+          class="w-full aspect-video object-cover"
+          src={entry.data.videoUrl}
+          poster={entry.data.posterUrl}
+          controls
+          preload="metadata"
+        ></video>
+      </div>
+
+      {entry.data.images.length > 0 && (
+        <div class="mt-10 grid gap-4 sm:grid-cols-3">
+          {entry.data.images.map((img: string) => (
+            <div class="overflow-hidden rounded-xl border border-outline">
+              <img src={img} alt="" class="h-full w-full object-cover aspect-[4/3]" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div class="prose mt-12 mx-auto">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Layout>

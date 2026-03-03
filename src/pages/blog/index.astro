@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+);
+---
+
+<Layout title="Blog — Luminary Films" description="Tips, breakdowns, and behind-the-scenes insights from our production team.">
+  <section class="pt-28 pb-24">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="text-center">
+        <span class="inline-block rounded-full bg-chip-bg px-3 py-1 text-xs font-semibold uppercase tracking-wider text-chip-text">
+          Blog
+        </span>
+        <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-on-surface-heading sm:text-5xl">
+          From the <span class="bg-gradient-to-r from-grad-from via-grad-via to-grad-to bg-clip-text text-transparent">journal</span>
+        </h1>
+        <p class="mx-auto mt-4 max-w-2xl text-lg text-on-surface-muted">
+          Tips, breakdowns, and behind-the-scenes insights from our production team.
+        </p>
+      </div>
+
+      <div class="mt-16 grid gap-8 md:grid-cols-2">
+        {posts.map((post) => (
+          <BlogCard
+            slug={post.id}
+            title={post.data.title}
+            description={post.data.description}
+            coverUrl={post.data.coverUrl}
+            publishDate={post.data.publishDate}
+            author={post.data.author}
+            tags={post.data.tags}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

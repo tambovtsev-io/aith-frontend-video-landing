@@ -1,46 +1,42 @@
-# Astro Starter Kit: Basics
+# Luminary Films — Video Production Agency Landing Page
 
-```sh
-npm create astro@latest -- --template basics
+A portfolio landing page for a fictional video production agency, built with **Astro 5**, **Tailwind CSS v4**, and **Markdown content collections**.
+
+## Stack
+
+- **Astro 5** — static site generator with component islands
+- **Tailwind CSS v4** — via `@tailwindcss/vite` plugin
+- **Markdown** — case studies and blog posts powered by Astro Content Collections (`glob` loader)
+- **CSS Custom Properties** — light/dark theme with a toggle button
+
+## Pages
+
+| Route | Description |
+|---|---|
+| `/` | Landing page — hero, selected work, blog previews, contact |
+| `/portfolio/` | Full portfolio listing |
+| `/blog/` | All blog posts |
+| `/cases/[id]/` | Individual case study (rendered from markdown) |
+| `/blog/[id]/` | Individual blog post (rendered from markdown) |
+
+## Content
+
+Markdown files live in `src/content/`:
+
+- **`cases/`** — Project case studies with video URLs, image galleries, and tags
+- **`blog/`** — Posts on cinematic lighting and camera selection
+
+Schemas are defined in `src/content.config.ts` with Zod validation.
+
+## Dark Mode
+
+Implemented via CSS custom properties on `:root` / `:root.dark`. The toggle in the navbar persists the choice to `localStorage`. Light by default.
+
+## Development
+
+```bash
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # static output in dist/
+npm run preview   # preview the build
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

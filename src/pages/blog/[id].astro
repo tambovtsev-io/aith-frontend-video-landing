@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { id: post.id }, props: { entry: post } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const formattedDate = entry.data.publishDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout title={`${entry.data.title} — Luminary Films Blog`} description={entry.data.description}>
+  <article class="pt-28 pb-24">
+    <div class="mx-auto max-w-3xl px-6">
+      <a href="/#blog" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary-hover transition-colors mb-8">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        Back to Blog
+      </a>
+
+      <div class="flex flex-wrap gap-2 mb-4">
+        {entry.data.tags.map((tag: string) => (
+          <span class="rounded-full bg-chip-bg px-3 py-1 text-xs font-semibold text-chip-text">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <h1 class="text-4xl font-extrabold tracking-tight text-on-surface-heading sm:text-5xl">
+        {entry.data.title}
+      </h1>
+
+      <div class="mt-4 flex items-center gap-4 text-sm text-on-surface-muted">
+        <span class="font-medium text-on-surface-heading">{entry.data.author}</span>
+        <span class="h-1 w-1 rounded-full bg-on-surface-muted"></span>
+        <time datetime={entry.data.publishDate.toISOString()}>{formattedDate}</time>
+      </div>
+
+      <div class="mt-8 overflow-hidden rounded-2xl border border-outline">
+        <img
+          src={entry.data.coverUrl}
+          alt={entry.data.title}
+          class="w-full aspect-[2/1] object-cover"
+        />
+      </div>
+
+      <div class="prose mt-12 mx-auto">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Layout>

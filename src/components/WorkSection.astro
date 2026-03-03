@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import CaseCard from './CaseCard.astro';
+
+const cases = (await getCollection('cases')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="work" class="relative py-24 lg:py-32">
+  <div class="pointer-events-none absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-outline to-transparent"></div>
+
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="text-center">
+      <span class="inline-block rounded-full bg-chip-bg px-3 py-1 text-xs font-semibold uppercase tracking-wider text-chip-text">
+        Portfolio
+      </span>
+      <h2 class="mt-4 text-4xl font-extrabold tracking-tight text-on-surface-heading sm:text-5xl">
+        Selected <span class="bg-gradient-to-r from-grad-from via-grad-via to-grad-to bg-clip-text text-transparent">work</span>
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-on-surface-muted">
+        A curated selection of projects that showcase our storytelling range — from high-energy brand campaigns to intimate documentary portraits.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {cases.map((c) => (
+        <CaseCard
+          slug={c.id}
+          title={c.data.title}
+          tagline={c.data.tagline}
+          videoUrl={c.data.videoUrl}
+          posterUrl={c.data.posterUrl}
+          tags={c.data.tags}
+        />
+      ))}
+    </div>
+
+    <div class="mt-12 text-center">
+      <a
+        href="/portfolio/"
+        class="inline-flex items-center gap-2 rounded-full border border-outline bg-surface-card px-7 py-3 text-sm font-semibold text-on-surface-heading hover:border-primary hover:text-primary transition-colors"
+      >
+        View All Projects
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
