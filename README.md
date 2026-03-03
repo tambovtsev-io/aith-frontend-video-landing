@@ -1,4 +1,4 @@
-# Luminary Films — Video Production Agency Landing Page
+# Demo Project for Video Production Agency Landing Page
 
 A portfolio landing page for a fictional video production agency, built with **Astro 5**, **Tailwind CSS v4**, and **Markdown content collections**.
 
